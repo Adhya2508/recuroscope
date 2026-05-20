@@ -1,44 +1,433 @@
-@import "tailwindcss";
+/* ═══════════════════════════════════════════════════════════
+   RECURSCOPE — index.css
+   Dark + Light theme via CSS custom properties
+═══════════════════════════════════════════════════════════ */
 
-body {
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+/* ── RESET ─────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: Inter, system-ui, sans-serif;
-  background: #020817;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DARK THEME  (default)
+═══════════════════════════════════════════════════════════ */
+:root,
+[data-theme="dark"] {
+  /* page */
+  --bg-page:          #020817;
+  --bg-panel:         rgba(4, 8, 18, 0.98);
+  --bg-panel-inner:   rgb(4, 8, 18);
+  --bg-editor:        rgb(4, 8, 18);
+  --bg-editor-header: rgb(5, 9, 20);
+  --bg-input:         rgb(8, 14, 30);
+  --bg-tag:           rgba(255,255,255,0.03);
+  --bg-stack-cell:    rgb(8, 14, 30);
+  --bg-stack-cell-top: linear-gradient(135deg, #0891b2, #1d4ed8);
+  --bg-arr-cell:      rgba(124, 58, 237, 0.12);
+  --bg-explain:       linear-gradient(135deg, rgba(99,102,241,0.08), rgba(59,130,246,0.06));
+  --bg-timeline:      rgb(4, 8, 18);
+  --bg-empty:         rgb(2, 4, 12);
+  --bg-tree:          rgb(2, 4, 12);
+  --bg-section-tab:   rgb(5, 9, 20);
+
+  /* borders */
+  --border-panel:     rgb(12, 20, 40);
+  --border-editor:    rgb(12, 20, 40);
+  --border-inner:     rgb(10, 16, 32);
+  --border-stack:     #1e293b;
+  --border-stack-top: #67e8f9;
+  --border-arr:       #3b1d8f;
+  --border-tag:       rgb(12, 20, 40);
+  --border-explain:   rgba(99, 102, 241, 0.18);
+  --border-section:   rgb(14, 22, 42);
+
+  /* text */
+  --text-primary:     #f1f5f9;
+  --text-secondary:   #64748b;
+  --text-muted:       #334155;
+  --text-faint:       #1e3a5f;
+  --text-dimmer:      #0f172a;
+  --text-explain:     #a5b4fc;
+  --text-mono-dim:    #475569;
+  --text-editor-tab:  #334155;
+
+  /* accent */
+  --accent:           #22d3ee;
+  --accent-dim:       rgba(34, 211, 238, 0.12);
+  --accent-border:    rgba(34, 211, 238, 0.25);
+  --accent-glow:      rgba(34, 211, 238, 0.55);
+
+  /* stack index label */
+  --stack-index-color: #1e3a5f;
+  --stack-val-color:   #ffffff;
+  --stack-top-label:   #22d3ee;
+  --stack-bottom-label:#1e3a5f;
+
+  /* tree node default */
+  --tree-node-bg:      rgb(5, 9, 20);
+  --tree-node-border:  rgb(20, 30, 52);
+  --tree-node-text:    #334155;
+  --tree-line:         #1e3a5f;
+
+  /* frame card base */
+  --frame-inactive-bg:     rgb(5, 9, 20);
+  --frame-inactive-border: rgb(18, 28, 46);
+
+  /* scrollbar */
+  --scrollbar-track: rgb(4, 8, 18);
+  --scrollbar-thumb: rgb(28, 38, 58);
+  --scrollbar-hover: rgb(51, 65, 85);
+
+  /* Monaco glyph arrow */
+  --glyph-color: #f87171;
+
+  /* line highlights */
+  --line-prev-bg:     rgba(34, 197, 94, 0.09);
+  --line-prev-border: #22c55e;
+  --line-curr-bg:     rgba(248, 113, 113, 0.12);
+  --line-curr-border: #f87171;
+
+  /* section tab selected */
+  --section-tab-active-bg:     rgba(34, 211, 238, 0.12);
+  --section-tab-active-color:  #22d3ee;
+  --section-tab-active-border: rgba(34, 211, 238, 0.25);
+  --section-tab-idle-color:    #475569;
+
+  /* example button */
+  --ex-btn-idle-bg:     rgba(255,255,255,0.03);
+  --ex-btn-idle-color:  #475569;
+  --ex-btn-idle-border: rgb(14, 22, 42);
+  --ex-btn-sel-bg:      rgba(34, 211, 238, 0.10);
+  --ex-btn-sel-color:   #22d3ee;
+  --ex-btn-sel-border:  rgba(34, 211, 238, 0.30);
+
+  /* info bar */
+  --info-bg:     rgb(5, 9, 20);
+  --info-border: rgb(14, 22, 42);
+  --info-text:   #64748b;
+  --info-icon:   #22d3ee;
+
+  /* try banner */
+  --try-bg:     rgba(16, 185, 129, 0.06);
+  --try-border: rgba(16, 185, 129, 0.20);
+  --try-text:   #6ee7b7;
+
+  /* error */
+  --error-bg:     rgba(239, 68, 68, 0.08);
+  --error-border: rgba(239, 68, 68, 0.22);
+  --error-text:   #fca5a5;
+
+  /* progress bar */
+  --progress-track: rgb(12, 18, 36);
+  --progress-fill:  linear-gradient(90deg, #22d3ee, #6366f1);
+
+  /* header gradient text */
+  --header-gradient: linear-gradient(135deg, #f1f5f9 20%, #22d3ee 100%);
+
+  /* arr flash */
+  --arr-flash-from: rgba(236, 72, 153, 0.55);
+  --arr-flash-to:   rgba(124, 58, 237, 0.12);
+  --arr-val-color:  #a78bfa;
+  --arr-val-flash:  #f9a8d4;
+  --arr-idx-color:  #4c1d95;
+  --arr-label:      #a78bfa;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LIGHT THEME
+═══════════════════════════════════════════════════════════ */
+[data-theme="light"] {
+  /* page */
+  --bg-page:          #f8fafc;
+  --bg-panel:         rgba(255, 255, 255, 0.98);
+  --bg-panel-inner:   #ffffff;
+  --bg-editor:        #fafafa;
+  --bg-editor-header: #f1f5f9;
+  --bg-input:         #f1f5f9;
+  --bg-tag:           rgba(0,0,0,0.03);
+  --bg-stack-cell:    #e2e8f0;
+  --bg-stack-cell-top: linear-gradient(135deg, #0891b2, #2563eb);
+  --bg-arr-cell:      rgba(109, 40, 217, 0.08);
+  --bg-explain:       linear-gradient(135deg, rgba(99,102,241,0.06), rgba(59,130,246,0.04));
+  --bg-timeline:      #f1f5f9;
+  --bg-empty:         #f8fafc;
+  --bg-tree:          #f8fafc;
+  --bg-section-tab:   #f1f5f9;
+
+  /* borders */
+  --border-panel:     #e2e8f0;
+  --border-editor:    #e2e8f0;
+  --border-inner:     #e2e8f0;
+  --border-stack:     #cbd5e1;
+  --border-stack-top: #0891b2;
+  --border-arr:       #a78bfa;
+  --border-tag:       #e2e8f0;
+  --border-explain:   rgba(99, 102, 241, 0.2);
+  --border-section:   #e2e8f0;
+
+  /* text */
+  --text-primary:     #0f172a;
+  --text-secondary:   #475569;
+  --text-muted:       #94a3b8;
+  --text-faint:       #cbd5e1;
+  --text-dimmer:      #e2e8f0;
+  --text-explain:     #4338ca;
+  --text-mono-dim:    #64748b;
+  --text-editor-tab:  #64748b;
+
+  /* accent */
+  --accent:           #0891b2;
+  --accent-dim:       rgba(8, 145, 178, 0.10);
+  --accent-border:    rgba(8, 145, 178, 0.30);
+  --accent-glow:      rgba(8, 145, 178, 0.40);
+
+  /* stack */
+  --stack-index-color: #94a3b8;
+  --stack-val-color:   #ffffff;
+  --stack-top-label:   #0891b2;
+  --stack-bottom-label:#94a3b8;
+
+  /* tree node */
+  --tree-node-bg:      #ffffff;
+  --tree-node-border:  #e2e8f0;
+  --tree-node-text:    #94a3b8;
+  --tree-line:         #cbd5e1;
+
+  /* frame card */
+  --frame-inactive-bg:     #f8fafc;
+  --frame-inactive-border: #e2e8f0;
+
+  /* scrollbar */
+  --scrollbar-track: #f1f5f9;
+  --scrollbar-thumb: #cbd5e1;
+  --scrollbar-hover: #94a3b8;
+
+  /* Monaco highlights */
+  --glyph-color: #dc2626;
+  --line-prev-bg:     rgba(34, 197, 94, 0.10);
+  --line-prev-border: #16a34a;
+  --line-curr-bg:     rgba(220, 38, 38, 0.08);
+  --line-curr-border: #dc2626;
+
+  /* section tabs */
+  --section-tab-active-bg:     rgba(8, 145, 178, 0.10);
+  --section-tab-active-color:  #0891b2;
+  --section-tab-active-border: rgba(8, 145, 178, 0.30);
+  --section-tab-idle-color:    #64748b;
+
+  /* example button */
+  --ex-btn-idle-bg:     rgba(0,0,0,0.03);
+  --ex-btn-idle-color:  #64748b;
+  --ex-btn-idle-border: #e2e8f0;
+  --ex-btn-sel-bg:      rgba(8, 145, 178, 0.08);
+  --ex-btn-sel-color:   #0891b2;
+  --ex-btn-sel-border:  rgba(8, 145, 178, 0.30);
+
+  /* info bar */
+  --info-bg:     #f1f5f9;
+  --info-border: #e2e8f0;
+  --info-text:   #64748b;
+  --info-icon:   #0891b2;
+
+  /* try banner */
+  --try-bg:     rgba(16, 185, 129, 0.07);
+  --try-border: rgba(16, 185, 129, 0.25);
+  --try-text:   #065f46;
+
+  /* error */
+  --error-bg:     rgba(220, 38, 38, 0.06);
+  --error-border: rgba(220, 38, 38, 0.20);
+  --error-text:   #b91c1c;
+
+  /* progress bar */
+  --progress-track: #e2e8f0;
+  --progress-fill:  linear-gradient(90deg, #0891b2, #6366f1);
+
+  /* header */
+  --header-gradient: linear-gradient(135deg, #0f172a 20%, #0891b2 100%);
+
+  /* arr */
+  --arr-flash-from: rgba(236, 72, 153, 0.40);
+  --arr-flash-to:   rgba(109, 40, 217, 0.08);
+  --arr-val-color:  #6d28d9;
+  --arr-val-flash:  #be185d;
+  --arr-idx-color:  #7c3aed;
+  --arr-label:      #7c3aed;
+}
+
+/* ── BASE STYLES ────────────────────────────────────────────── */
+html { font-size: 14px; scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
   overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
-/* ═══════════════════════════════════════════════
-   PYTHON TUTOR STYLE DUAL LINE HIGHLIGHTING
-═══════════════════════════════════════════════ */
+#root { min-height: 100vh; }
 
-/* Green = line that JUST executed */
+::selection {
+  background: var(--accent-dim);
+  color: var(--text-primary);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MONACO EDITOR  — LINE HIGHLIGHTING
+═══════════════════════════════════════════════════════════ */
 .line-prev {
-  background: rgba(34, 197, 94, 0.13) !important;
-  border-left: 3px solid #22c55e !important;
+  background: var(--line-prev-bg) !important;
+  border-left: 3px solid var(--line-prev-border) !important;
 }
 
-/* Red = line ABOUT TO execute (next) */
 .line-curr {
-  background: rgba(248, 113, 113, 0.15) !important;
-  border-left: 3px solid #f87171 !important;
+  background: var(--line-curr-bg) !important;
+  border-left: 3px solid var(--line-curr-border) !important;
 }
 
-/* Arrow in glyph margin for current line */
 .glyph-curr::before {
-  content: "→";
-  color: #f87171;
-  font-size: 13px;
+  content: "▶";
+  color: var(--glyph-color);
+  font-size: 10px;
   font-weight: 900;
   line-height: 19px;
-  padding-left: 2px;
+  padding-left: 3px;
   display: block;
 }
 
-/* ═══════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════
    SCROLLBARS
-═══════════════════════════════════════════════ */
-::-webkit-scrollbar            { width: 5px; height: 5px; }
-::-webkit-scrollbar-track      { background: rgb(8, 14, 28); }
-::-webkit-scrollbar-thumb      { background: rgb(30, 41, 59); border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover{ background: rgb(51, 65, 85); }
+═══════════════════════════════════════════════════════════ */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-hover); }
+* { scrollbar-width: thin; scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track); }
+
+/* ═══════════════════════════════════════════════════════════
+   RANGE INPUT
+═══════════════════════════════════════════════════════════ */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 3px;
+  border-radius: 99px;
+  background: var(--border-stack);
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  box-shadow: 0 0 7px var(--accent-glow);
+  transition: transform 0.15s ease;
+}
+input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.22); }
+input[type="range"]::-moz-range-thumb {
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+  box-shadow: 0 0 7px var(--accent-glow);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BUTTON FOCUS
+═══════════════════════════════════════════════════════════ */
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════════════════ */
+@keyframes var-flash {
+  0%   { background: rgba(34, 211, 238, 0.20); }
+  100% { background: transparent; }
+}
+
+@keyframes cell-flash {
+  0%   { background: var(--arr-flash-from); }
+  100% { background: var(--arr-flash-to); }
+}
+
+@keyframes dot-pulse {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50%     { transform: scale(1.4); opacity: 0.7; }
+}
+
+@keyframes live-blink {
+  0%,100% { opacity: 1; }
+  50%     { opacity: 0.15; }
+}
+
+@keyframes done-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes spin-in {
+  from { transform: rotate(-180deg) scale(0.5); opacity: 0; }
+  to   { transform: rotate(0deg)    scale(1);   opacity: 1; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   THEME TOGGLE BUTTON
+═══════════════════════════════════════════════════════════ */
+.theme-toggle {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--border-panel);
+  background: var(--bg-tag);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+.theme-toggle:hover {
+  background: var(--accent-dim);
+  border-color: var(--accent-border);
+  color: var(--accent);
+}
+.theme-toggle svg {
+  animation: spin-in 0.3s ease;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   UTILITY
+═══════════════════════════════════════════════════════════ */
+.mono { font-family: "JetBrains Mono", monospace; }
+
+.gradient-text {
+  background: var(--header-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.no-select { user-select: none; -webkit-user-select: none; }
+
+/* Framer Motion portal */
+[data-framer-portal-host] {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}

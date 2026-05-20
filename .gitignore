@@ -1,0 +1,78 @@
+# ─────────────────────────────────────────────
+# ROOT
+# ─────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.log
+
+# ─────────────────────────────────────────────
+# VSCODE
+# ─────────────────────────────────────────────
+.vscode/
+.idea/
+
+# ─────────────────────────────────────────────
+# PYTHON BACKEND
+# ─────────────────────────────────────────────
+backend/venv/
+backend/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/*.pyd
+backend/.pytest_cache/
+backend/.mypy_cache/
+
+# FastAPI / Uvicorn
+backend/*.log
+
+# Environment variables
+backend/.env
+
+# ─────────────────────────────────────────────
+# NODE / REACT FRONTEND
+# ─────────────────────────────────────────────
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.cache/
+
+# npm/yarn logs
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Environment variables
+frontend/.env
+frontend/.env.local
+
+# ─────────────────────────────────────────────
+# BUILD FILES
+# ─────────────────────────────────────────────
+*.out
+*.exe
+*.class
+*.jar
+
+# ─────────────────────────────────────────────
+# MAC / SYSTEM JUNK
+# ─────────────────────────────────────────────
+.AppleDouble
+.LSOverride
+Icon
+
+# ─────────────────────────────────────────────
+# OPTIONAL
+# Uncomment if needed
+# ─────────────────────────────────────────────
+
+# screenshots
+# *.png
+# *.jpg
+
+# recordings
+# *.mp4
+# *.mov
+
+# generated recursion traces
+# traces/
+# exports/
