@@ -734,7 +734,7 @@ export default function App() {
   const runCode = async () => {
     try {
       setLoading(true); setError(null); reset();
-      const res = await axios.post("http://127.0.0.1:8000/execute", { code });
+      const res = await axios.post("https://recuroscope.onrender.com/execute", { code });
       if (!res.data.success) { setError(res.data.error || "Backend error"); return; }
       setEvents(res.data.events || []);
     } catch (err) {
